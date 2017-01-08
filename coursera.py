@@ -3,8 +3,12 @@ import openpyxl
 import lxml
 import re
 from bs4 import BeautifulSoup
-import os
+import logging
 import random
+
+
+logging.basicConfig(level='INFO')
+logger = logging.getLogger(__name__)
 
 
 def get_courses_list():
@@ -86,7 +90,7 @@ def get_course_info(course_slug):
         course_info.append(find_course_planned_start_date(parsed_course_page))
     course_info.append(count_course_duration(parsed_course_page))
     course_info.append(get_course_rating(parsed_course_page))
-    return course_info
+    return tuple(course_info)
 
 
 def output_courses_info_to_xlsx(course_list, filepath):
